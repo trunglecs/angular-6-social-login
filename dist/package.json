@@ -1,0 +1,49 @@
+{
+  "name": "angular-6-social-login",
+  "version": "1.1.0",
+  "description": "Agular 6 : Social Login (Facebook and Google)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/high54/angular-6-social-login"
+  },
+  "author": {
+    "name": "Julien Bertacco",
+    "email": "julien.bertacco@gmail.com"
+  },
+  "keywords": [
+    "angular",
+    "angular6",
+    "ng6",
+    "angular social login",
+    "angular facebook login",
+    "angular google login",
+    "angular 6 social login",
+    "angular6 social login",
+    "social authentication",
+    "angular social authentication",
+    "angular-social-login",
+    "angular6-social-login",
+    "angular-6-social-login",
+    "social-authentication",
+    "social-login",
+    "google-authentication",
+    "angular-google-authentication",
+    "facebook-authentication",
+    "angular-facebook-authentication",
+    "angular module"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/high54/angular-6-social-login/issues"
+  },
+  "main": "angular-6-social-login.umd.js",
+  "module": "angular-6-social-login.js",
+  "jsnext:main": "angular-6-social-login.js",
+  "typings": "angular-6-social-login.d.ts",
+  "peerDependencies": {
+    "@angular/common": "^5.0.0",
+    "@angular/core": "^5.0.0",
+    "rxjs": "^5.1.0",
+    "zone.js": "^0.8.4"
+  }
+}
