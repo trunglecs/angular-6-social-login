@@ -10,4 +10,5 @@ export declare class GoogleLoginProvider extends BaseLoginProvider {
     drawUser(): SocialUser;
     signIn(): Promise<SocialUser>;
     signOut(): Promise<any>;
+    authorize(): Promise<any>;
 }

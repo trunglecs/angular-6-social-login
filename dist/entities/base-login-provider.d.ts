@@ -5,5 +5,6 @@ export declare abstract class BaseLoginProvider implements LoginProvider {
     abstract initialize(): Promise<SocialUser>;
     abstract signIn(): Promise<SocialUser>;
     abstract signOut(): Promise<any>;
+    abstract authorize(): Promise<any>;
     loadScript(obj: LoginProviderClass, onload: any): void;
 }

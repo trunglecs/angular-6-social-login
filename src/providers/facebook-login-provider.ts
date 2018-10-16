@@ -53,7 +53,6 @@ export class FacebookLoginProvider extends BaseLoginProvider {
         if (response.authResponse) {
           const accessToken = FB.getAuthResponse();
           resolve(FacebookLoginProvider.drawUser(Object.assign({}, {token: accessToken})));
-
         }
       }, { scope: 'email,public_profile' });
     });
@@ -64,6 +63,17 @@ export class FacebookLoginProvider extends BaseLoginProvider {
       FB.logout((response: any) => {
         resolve();
       });
+    });
+  }
+
+  authorize(information:string = 'email,public_profile'): Promise<any> {
+    return new Promise((resolve, reject) => {
+      FB.login((response: any) => {
+        if (response.authResponse) {
+          const authResponse = FB.getAuthResponse();
+          resolve(FacebookLoginProvider.drawUser(Object.assign({}, {authResponse: authResponse})));
+        }
+      }, { scope: information });
     });
   }
 

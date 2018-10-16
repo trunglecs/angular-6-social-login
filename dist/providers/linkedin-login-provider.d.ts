@@ -10,4 +10,5 @@ export declare class LinkedinLoginProvider extends BaseLoginProvider {
     drawUser(response: LinkedInResponse): SocialUser;
     signIn(): Promise<SocialUser>;
     signOut(): Promise<any>;
+    authorize(): Promise<any>;
 }

@@ -9,4 +9,5 @@ export declare class FacebookLoginProvider extends BaseLoginProvider {
     static drawUser(response: any): SocialUser;
     signIn(): Promise<SocialUser>;
     signOut(): Promise<any>;
+    authorize(information?: string): Promise<any>;
 }

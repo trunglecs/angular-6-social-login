@@ -18,4 +18,5 @@ export declare class AuthService {
     constructor(config: AuthServiceConfig);
     signIn(providerId: string): Promise<SocialUser>;
     signOut(): Promise<any>;
+    authorize(providerId: string, information?: string): Promise<SocialUser>;
 }

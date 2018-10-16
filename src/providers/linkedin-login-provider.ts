@@ -74,4 +74,10 @@ export class LinkedinLoginProvider extends BaseLoginProvider {
     });
   }
 
+  authorize(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      reject(new Error('not implemented'));
+    });
+  }
+
 }

@@ -83,4 +83,17 @@ export class AuthService {
     });
   }
 
+  authorize(providerId: string, information?:string): Promise<SocialUser> {
+    return new Promise((resolve, reject) => {
+      let providerObject = this.providers.get(providerId);
+      if (providerObject) {
+        providerObject.authorize(information).then(authResponse => {
+          resolve(authResponse);
+        });
+      } else {
+        reject(AuthService.LOGIN_PROVIDER_NOT_FOUND);
+      }
+    });
+  }
+
 }

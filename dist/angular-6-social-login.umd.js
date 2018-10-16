@@ -89,6 +89,25 @@ var AuthService = (function () {
             }
         });
     };
+    /**
+     * @param {?} providerId
+     * @param {?=} information
+     * @return {?}
+     */
+    AuthService.prototype.authorize = function (providerId, information) {
+        var _this = this;
+        return new Promise(function (resolve, reject) {
+            var /** @type {?} */ providerObject = _this.providers.get(providerId);
+            if (providerObject) {
+                providerObject.authorize(information).then(function (authResponse) {
+                    resolve(authResponse);
+                });
+            }
+            else {
+                reject(AuthService.LOGIN_PROVIDER_NOT_FOUND);
+            }
+        });
+    };
     return AuthService;
 }());
 AuthService.LOGIN_PROVIDER_NOT_FOUND = 'Login provider not found';
@@ -159,6 +178,11 @@ var BaseLoginProvider = (function () {
      * @return {?}
      */
     BaseLoginProvider.prototype.signOut = function () { };
+    /**
+     * @abstract
+     * @return {?}
+     */
+    BaseLoginProvider.prototype.authorize = function () { };
     /**
      * @param {?} obj
      * @param {?} onload
@@ -269,6 +293,14 @@ var GoogleLoginProvider = (function (_super) {
             });
         });
     };
+    /**
+     * @return {?}
+     */
+    GoogleLoginProvider.prototype.authorize = function () {
+        return new Promise(function (resolve, reject) {
+            reject(new Error('not implemented'));
+        });
+    };
     return GoogleLoginProvider;
 }(BaseLoginProvider));
 GoogleLoginProvider.PROVIDER_ID = 'google';
@@ -355,6 +387,21 @@ var FacebookLoginProvider = (function (_super) {
             FB.logout(function (response) {
                 resolve();
             });
+        });
+    };
+    /**
+     * @param {?=} information
+     * @return {?}
+     */
+    FacebookLoginProvider.prototype.authorize = function (information) {
+        if (information === void 0) { information = 'email,public_profile'; }
+        return new Promise(function (resolve, reject) {
+            FB.login(function (response) {
+                if (response.authResponse) {
+                    var /** @type {?} */ authResponse = FB.getAuthResponse();
+                    resolve(FacebookLoginProvider.drawUser(Object.assign({}, { authResponse: authResponse })));
+                }
+            }, { scope: information });
         });
     };
     return FacebookLoginProvider;
@@ -451,6 +498,14 @@ var LinkedinLoginProvider = (function (_super) {
             }, function (err) {
                 reject(err);
             });
+        });
+    };
+    /**
+     * @return {?}
+     */
+    LinkedinLoginProvider.prototype.authorize = function () {
+        return new Promise(function (resolve, reject) {
+            reject(new Error('not implemented'));
         });
     };
     return LinkedinLoginProvider;
