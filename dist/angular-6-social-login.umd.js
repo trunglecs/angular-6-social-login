@@ -346,8 +346,10 @@ var FacebookLoginProvider = (function (_super) {
                 FB.AppEvents.logPageView();
                 FB.getLoginStatus(function (response) {
                     if (response.status === 'connected') {
-                        var /** @type {?} */ accessToken = FB.getAuthResponse();
-                        resolve(FacebookLoginProvider.drawUser(Object.assign({}, { token: accessToken })));
+                        var /** @type {?} */ accessToken_1 = FB.getAuthResponse()['accessToken'];
+                        FB.api('/me?fields=name,email,picture', function (res) {
+                            resolve(FacebookLoginProvider.drawUser(Object.assign({}, { token: accessToken_1 }, res)));
+                        });
                     }
                 });
             });
@@ -373,8 +375,10 @@ var FacebookLoginProvider = (function (_super) {
         return new Promise(function (resolve, reject) {
             FB.login(function (response) {
                 if (response.authResponse) {
-                    var /** @type {?} */ accessToken = FB.getAuthResponse();
-                    resolve(FacebookLoginProvider.drawUser(Object.assign({}, { token: accessToken })));
+                    var /** @type {?} */ accessToken_2 = FB.getAuthResponse()['accessToken'];
+                    FB.api('/me?fields=name,email,picture', function (res) {
+                        resolve(FacebookLoginProvider.drawUser(Object.assign({}, { token: accessToken_2 }, res)));
+                    });
                 }
             }, { scope: 'email,public_profile' });
         });
@@ -399,7 +403,7 @@ var FacebookLoginProvider = (function (_super) {
             FB.login(function (response) {
                 if (response.authResponse) {
                     var /** @type {?} */ authResponse = FB.getAuthResponse();
-                    resolve(FacebookLoginProvider.drawUser(Object.assign({}, { authResponse: authResponse })));
+                    resolve(Object.assign({}, { authResponse: authResponse }));
                 }
             }, { scope: information });
         });
