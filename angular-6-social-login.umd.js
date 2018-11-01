@@ -1,6 +1,8 @@
-import { Injectable, NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { BehaviorSubject } from 'rxjs';
+(function (global, factory) {
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('rxjs')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/common', 'rxjs'], factory) :
+	(factory((global['angular-6-social-login'] = {}),global.core,global.common,global.rxjs));
+}(this, (function (exports,core,common,rxjs) { 'use strict';
 
 var AuthServiceConfig = (function () {
     /**
@@ -22,7 +24,7 @@ var AuthService = (function () {
     function AuthService(config) {
         var _this = this;
         this._user = null;
-        this._authState = new BehaviorSubject(null);
+        this._authState = new rxjs.BehaviorSubject(null);
         this.providers = config.providers;
         this.providers.forEach(function (provider, key) {
             provider.initialize().then(function (user) {
@@ -110,7 +112,7 @@ var AuthService = (function () {
 }());
 AuthService.LOGIN_PROVIDER_NOT_FOUND = 'Login provider not found';
 AuthService.decorators = [
-    { type: Injectable },
+    { type: core.Injectable },
 ];
 /**
  * @nocollapse
@@ -125,9 +127,9 @@ var SocialLoginModule = (function () {
     return SocialLoginModule;
 }());
 SocialLoginModule.decorators = [
-    { type: NgModule, args: [{
+    { type: core.NgModule, args: [{
                 imports: [
-                    CommonModule
+                    common.CommonModule
                 ],
                 providers: [
                     AuthService
@@ -342,14 +344,6 @@ var FacebookLoginProvider = (function (_super) {
                     version: 'v2.10'
                 });
                 FB.AppEvents.logPageView();
-                FB.getLoginStatus(function (response) {
-                    if (response.status === 'connected') {
-                        var /** @type {?} */ accessToken_1 = FB.getAuthResponse()['accessToken'];
-                        FB.api('/me?fields=name,email,picture', function (res) {
-                            resolve(FacebookLoginProvider.drawUser(Object.assign({}, { token: accessToken_1 }, res)));
-                        });
-                    }
-                });
             });
         });
     };
@@ -373,9 +367,9 @@ var FacebookLoginProvider = (function (_super) {
         return new Promise(function (resolve, reject) {
             FB.login(function (response) {
                 if (response.authResponse) {
-                    var /** @type {?} */ accessToken_2 = FB.getAuthResponse()['accessToken'];
+                    var /** @type {?} */ accessToken_1 = FB.getAuthResponse()['accessToken'];
                     FB.api('/me?fields=name,email,picture', function (res) {
-                        resolve(FacebookLoginProvider.drawUser(Object.assign({}, { token: accessToken_2 }, res)));
+                        resolve(FacebookLoginProvider.drawUser(Object.assign({}, { token: accessToken_1 }, res)));
                     });
                 }
             }, { scope: 'email,public_profile' });
@@ -514,4 +508,16 @@ var LinkedinLoginProvider = (function (_super) {
 }(BaseLoginProvider));
 LinkedinLoginProvider.PROVIDER_ID = 'linkedin';
 
-export { SocialLoginModule, AuthService, AuthServiceConfig, SocialUser, LoginProviderClass, LinkedInResponse, FacebookLoginProvider, GoogleLoginProvider, LinkedinLoginProvider };
+exports.SocialLoginModule = SocialLoginModule;
+exports.AuthService = AuthService;
+exports.AuthServiceConfig = AuthServiceConfig;
+exports.SocialUser = SocialUser;
+exports.LoginProviderClass = LoginProviderClass;
+exports.LinkedInResponse = LinkedInResponse;
+exports.FacebookLoginProvider = FacebookLoginProvider;
+exports.GoogleLoginProvider = GoogleLoginProvider;
+exports.LinkedinLoginProvider = LinkedinLoginProvider;
+
+Object.defineProperty(exports, '__esModule', { value: true });
+
+})));
