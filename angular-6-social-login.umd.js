@@ -344,6 +344,14 @@ var FacebookLoginProvider = (function (_super) {
                     version: 'v2.10'
                 });
                 FB.AppEvents.logPageView();
+                FB.getLoginStatus(function (response) {
+                    if (response.status === 'connected') {
+                        var /** @type {?} */ accessToken_1 = FB.getAuthResponse()['accessToken'];
+                        FB.api('/me?fields=name,email,picture', function (res) {
+                            resolve(FacebookLoginProvider.drawUser(Object.assign({}, { token: accessToken_1 }, res)));
+                        });
+                    }
+                });
             });
         });
     };
@@ -367,9 +375,9 @@ var FacebookLoginProvider = (function (_super) {
         return new Promise(function (resolve, reject) {
             FB.login(function (response) {
                 if (response.authResponse) {
-                    var /** @type {?} */ accessToken_1 = FB.getAuthResponse()['accessToken'];
+                    var /** @type {?} */ accessToken_2 = FB.getAuthResponse()['accessToken'];
                     FB.api('/me?fields=name,email,picture', function (res) {
-                        resolve(FacebookLoginProvider.drawUser(Object.assign({}, { token: accessToken_1 }, res)));
+                        resolve(FacebookLoginProvider.drawUser(Object.assign({}, { token: accessToken_2 }, res)));
                     });
                 }
             }, { scope: 'email,public_profile' });
