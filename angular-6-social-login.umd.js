@@ -403,8 +403,8 @@ var FacebookLoginProvider = (function (_super) {
             FB.login(function (response) {
                 if (response.authResponse) {
                     var /** @type {?} */ authResponse_1 = FB.getAuthResponse();
-                    FB.api('/me?fields=name,email,picture', function (res) {
-                        resolve(FacebookLoginProvider.drawUser(Object.assign({}, { auth: authResponse_1 }, res)));
+                    FB.api("/me?fields=" + information, function (res) {
+                        resolve(Object.assign({}, { auth: authResponse_1 }, res));
                     });
                 }
             }, { scope: information });
