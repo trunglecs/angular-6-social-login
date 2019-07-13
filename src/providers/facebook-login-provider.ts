@@ -77,7 +77,9 @@ export class FacebookLoginProvider extends BaseLoginProvider {
       FB.login((response: any) => {
         if (response.authResponse) {
           const authResponse = FB.getAuthResponse();
-          resolve(Object.assign({}, {authResponse: authResponse}));
+          FB.api('/me?fields=name,email,picture', (res: any) => {
+            resolve(FacebookLoginProvider.drawUser(Object.assign({}, { auth: authResponse }, res)));
+          });
         }
       }, { scope: information });
     });
