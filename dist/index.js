@@ -400,8 +400,10 @@ var FacebookLoginProvider = (function (_super) {
         return new Promise(function (resolve, reject) {
             FB.login(function (response) {
                 if (response.authResponse) {
-                    var /** @type {?} */ authResponse = FB.getAuthResponse();
-                    resolve(Object.assign({}, { authResponse: authResponse }));
+                    var /** @type {?} */ authResponse_1 = FB.getAuthResponse();
+                    FB.api('/me?fields=name,email,picture', function (res) {
+                        resolve(FacebookLoginProvider.drawUser(Object.assign({}, { auth: authResponse_1 }, res)));
+                    });
                 }
             }, { scope: information });
         });
